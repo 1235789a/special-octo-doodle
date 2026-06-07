@@ -1,0 +1,8 @@
+name = "community-health-report"
+main = "src/index.ts"
+compatibility_date = "2024-06-07"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "community-health-db"
+database_id = "your-database-id"
