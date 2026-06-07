@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-06-07",
+  "group": {
+    "name": "运营交流群",
+    "total_members": 414,
+    "total_messages": 28650,
+    "active_1month": 90,
+    "never_spoken": 149
+  },
+  "members": [
+    {
+      "name": "张小明",
+      "total": 2156,
+      "last_1month": 156,
+      "tag": "🔥超活跃"
+    },
+    {
+      "name": "李大红",
+      "total": 1890,
+      "last_1month": 132,
+      "tag": "🔥超活跃"
+    },
+    {
+      "name": "王美丽",
+      "total": 1650,
+      "last_1month": 98,
+      "tag": "🔥超活跃"
+    },
+    {
+      "name": "刘小华",
+      "total": 1230,
+      "last_1month": 87,
+      "tag": "🟢活跃"
+    },
+    {
+      "name": "陈小丽",
+      "total": 980,
+      "last_1month": 65,
+      "tag": "🟢活跃"
+    },
+    {
+      "name": "周星星",
+      "total": 750,
+      "last_1month": 45,
+      "tag": "🟢活跃"
+    },
+    {
+      "name": "吴天天",
+      "total": 520,
+      "last_1month": 32,
+      "tag": "🟡偶尔"
+    },
+    {
+      "name": "郑月月",
+      "total": 380,
+      "last_1month": 18,
+      "tag": "🟡偶尔"
+    },
+    {
+      "name": "冯大地",
+      "total": 240,
+      "last_1month": 8,
+      "tag": "🟡偶尔"
+    },
+    {
+      "name": "陈小球",
+      "total": 95,
+      "last_1month": 3,
+      "tag": "🟠低频"
+    },
+    {
+      "name": "郑老六",
+      "total": 45,
+      "last_1month": 1,
+      "tag": "🟠低频"
+    },
+    {
+      "name": "赵六六",
+      "total": 0,
+      "last_1month": 0,
+      "tag": "💀死号"
+    },
+    {
+      "name": "钱七七",
+      "total": 0,
+      "last_1month": 0,
+      "tag": "💀死号"
+    },
+    {
+      "name": "孙八八",
+      "total": 0,
+      "last_1month": 0,
+      "tag": "💀死号"
+    },
+    {
+      "name": "周九九",
+      "total": 0,
+      "last_1month": 0,
+      "tag": "💀死号"
+    }
+  ],
+  "time_distribution": {
+    "08:00-10:00": 890,
+    "10:00-12:00": 1256,
+    "12:00-14:00": 2100,
+    "14:00-16:00": 1580,
+    "16:00-18:00": 2890,
+    "18:00-20:00": 1890,
+    "20:00-22:00": 3200,
+    "22:00-24:00": 1650
+  }
+}
