@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>社群体检报告 - 微信群AI分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}:root{--primary:#6366f1;--primary-light:#818cf8;--primary-dark:#4f46e5;--success:#10b981;--gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--gray-50);color:var(--gray-800);line-height:1.6}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.hero{background:linear-gradient(180deg,#fff 0%,var(--gray-50) 100%);padding:80px 0 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.1);color:var(--primary);padding:8px 16px;border-radius:100px;font-size:14px;font-weight:500;margin-bottom:24px}
+.hero-title{font-size:48px;font-weight:700;letter-spacing:-0.02em;color:var(--gray-900);margin-bottom:20px;line-height:1.2}
+.hero-subtitle{font-size:20px;color:var(--gray-500);max-width:640px;margin:0 auto 48px;line-height:1.7}
+.value-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.value-card{background:#fff;border:1px solid var(--gray-200);border-radius:16px;padding:32px;text-align:left;transition:all 0.2s ease}
+.value-card:hover{border-color:var(--primary-light);box-shadow:0 4px 24px rgba(99,102,241,0.08);transform:translateY(-2px)}
+.value-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px}
+.value-title{font-size:18px;font-weight:600;color:var(--gray-900);margin-bottom:8px}
+.value-desc{font-size:14px;color:var(--gray-500);line-height:1.6}
+.preview-section{background:#fff;padding:80px 0;border-top:1px solid var(--gray-100)}
+.section-header{text-align:center;margin-bottom:48px}
+.section-title{font-size:32px;font-weight:700;color:var(--gray-900);margin-bottom:12px}
+.section-subtitle{font-size:16px;color:var(--gray-500)}
+.report-preview{background:#fff;border:1px solid var(--gray-200);border-radius:24px;overflow:hidden;max-width:480px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.08)}
+.report-header{background:linear-gradient(135deg,var(--primary),#7c3aed);color:#fff;padding:32px;text-align:center}
+.report-title{font-size:14px;font-weight:500;opacity:0.9;margin-bottom:8px}
+.report-score{font-size:56px;font-weight:800;letter-spacing:-0.02em}
+.report-grade{font-size:16px;opacity:0.9;margin-top:4px}
+.report-body{padding:32px}
+.report-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+.stat-item{background:var(--gray-50);padding:20px;border-radius:12px;text-align:center}
+.stat-value{font-size:28px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.stat-label{font-size:13px;color:var(--gray-500)}
+.report-insight{background:var(--gray-50);padding:20px;border-radius:12px;border-left:4px solid var(--primary)}
+.insight-title{font-size:13px;font-weight:600;color:var(--gray-700);margin-bottom:8px}
+.insight-text{font-size:14px;color:var(--gray-600);line-height:1.6}
+.form-section{padding:80px 0;background:var(--gray-50)}
+.form-card{background:#fff;border:1px solid var(--gray-200);border-radius:24px;padding:48px;max-width:480px;margin:0 auto}
+.form-title{font-size:24px;font-weight:700;color:var(--gray-900);text-align:center;margin-bottom:8px}
+.form-subtitle{font-size:15px;color:var(--gray-500);text-align:center;margin-bottom:32px}
+.input-group{margin-bottom:16px}
+.input-label{display:block;font-size:14px;font-weight:500;color:var(--gray-700);margin-bottom:8px}
+.input-field{width:100%;padding:14px 16px;border:2px solid var(--gray-200);border-radius:12px;font-size:16px;transition:all 0.2s ease;font-family:inherit}
+.input-field:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(99,102,241,0.1)}
+.btn{width:100%;padding:16px 24px;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.2s ease;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,0.3)}
+.btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.upload-section{margin-top:24px;display:none}
+.upload-section.active{display:block}
+.upload-area{border:2px dashed var(--gray-300);border-radius:16px;padding:48px 24px;text-align:center;cursor:pointer;transition:all 0.2s ease;background:var(--gray-50)}
+.upload-area:hover{border-color:var(--primary);background:rgba(99,102,241,0.02)}
+.upload-area.dragover{border-color:var(--primary);background:rgba(99,102,241,0.05)}
+.upload-icon{font-size:48px;margin-bottom:16px}
+.upload-text{font-size:16px;color:var(--gray-700);margin-bottom:8px}
+.upload-hint{font-size:14px;color:var(--gray-400)}
+.file-info{display:none;align-items:center;gap:12px;padding:16px;background:var(--gray-50);border-radius:12px;margin-top:16px}
+.file-info.active{display:flex}
+.file-icon{width:40px;height:40px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px}
+.file-details{flex:1}
+.file-name{font-size:14px;font-weight:500;color:var(--gray-800)}
+.file-size{font-size:13px;color:var(--gray-500)}
+.file-remove{width:32px;height:32px;border:none;background:var(--gray-200);border-radius:8px;cursor:pointer;color:var(--gray-500);font-size:18px}
+.status{padding:16px;border-radius:12px;font-size:14px;text-align:center;margin-top:16px;display:none}
+.status.active{display:block}
+.status.success{background:rgba(16,185,129,0.1);color:var(--success)}
+.status.error{background:rgba(239,68,68,0.1);color:#ef4444}
+.status.loading{background:rgba(99,102,241,0.1);color:var(--primary)}
+.trust-section{padding:60px 0 80px;background:#fff;border-top:1px solid var(--gray-100)}
+.trust-title{font-size:20px;font-weight:600;color:var(--gray-700);text-align:center;margin-bottom:32px}
+.trust-items{display:flex;flex-wrap:wrap;justify-content:center;gap:24px}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray-600)}
+.trust-icon{width:20px;height:20px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;flex-shrink:0}
+.steps{display:flex;justify-content:center;gap:48px;margin:32px 0}
+.step{display:flex;align-items:center;gap:12px}
+.step-number{width:32px;height:32px;background:var(--gray-200);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--gray-500)}
+.step.active .step-number{background:var(--primary);color:#fff}
+.step-text{font-size:14px;color:var(--gray-500)}
+.step.active .step-text{color:var(--gray-800);font-weight:500}
+.step-arrow{color:var(--gray-300);font-size:20px}
+@media(max-width:768px){.hero{padding:60px 0 40px}.hero-title{font-size:32px}.hero-subtitle{font-size:16px}.value-cards{grid-template-columns:1fr}.section-title{font-size:24px}.form-card{padding:32px 24px}.steps{flex-direction:column;align-items:center;gap:16px}.step-arrow{transform:rotate(90deg)}.trust-items{flex-direction:column;align-items:center}}
+.loading-spinner{display:inline-block;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-radius:50%;border-top-color:#fff;animation:spin 0.8s linear infinite;margin-right:8px;vertical-align:middle}@keyframes spin{to{transform:rotate(360deg)}}
+</style></head><body>
+<section class="hero"><div class="container">
+<div class="hero-badge">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+</svg>
+微信群AI分析服务
+</div>
+<h1 class="hero-title">微信群AI体检报告</h1>
+<p class="hero-subtitle">3分钟看清你的群到底有多少活跃成员，多少沉默成员，以及群是否正在失去活力。</p>
+<div class="value-cards">
+<div class="value-card"><div class="value-icon">👥</div><h3 class="value-title">核心成员识别</h3><p class="value-desc">找出真正推动群活跃的关键成员，了解谁在贡献内容</p></div>
+<div class="value-card"><div class="value-icon">💀</div><h3 class="value-title">沉默成员检测</h3><p class="value-desc">快速识别长期不参与讨论的成员，了解群真实活跃度</p></div>
+<div class="value-card"><div class="value-icon">📈</div><h3 class="value-title">群健康评分</h3><p class="value-desc">用数据判断群处于成长、稳定还是衰退阶段</p></div>
+</div>
+</div></section>
+<section class="preview-section"><div class="container">
+<div class="section-header"><h2 class="section-title">你将获得什么？</h2><p class="section-subtitle">专业的群体检分析报告，清晰呈现群状态</p></div>
+<div class="report-preview">
+<div class="report-header"><div class="report-title">群健康评分</div><div class="report-score">72</div><div class="report-grade">良好</div></div>
+<div class="report-body">
+<div class="report-stats">
+<div class="stat-item"><div class="stat-value">414</div><div class="stat-label">成员总数</div></div>
+<div class="stat-item"><div class="stat-value">90</div><div class="stat-label">活跃成员</div></div>
+<div class="stat-item"><div class="stat-value">149</div><div class="stat-label">长期沉默成员</div></div>
+<div class="stat-item"><div class="stat-value">5</div><div class="stat-label">核心贡献成员</div></div>
+</div>
+<div class="report-insight"><div class="insight-title">系统分析</div><div class="insight-text">TOP5成员贡献42%消息，群活跃度偏低，建议优化成员结构</div></div>
+</div>
+</div>
+</div></section>
+<section class="form-section"><div class="container">
+<div class="section-header"><h2 class="section-title">开始生成你的群体检报告</h2><p class="section-subtitle">请输入购买后获得的兑换码</p></div>
+<div class="form-card">
+<div class="steps">
+<div class="step active" id="step1-indicator"><div class="step-number">1</div><div class="step-text">验证兑换码</div></div>
+<div class="step-arrow">→</div>
+<div class="step" id="step2-indicator"><div class="step-number">2</div><div class="step-text">上传数据</div></div>
+<div class="step-arrow">→</div>
+<div class="step" id="step3-indicator"><div class="step-number">3</div><div class="step-text">获得报告</div></div>
+</div>
+<div id="step1">
+<div class="input-group"><label class="input-label">兑换码</label><input type="text" id="code" class="input-field" placeholder="请输入兑换码（例如：DEMO2024）" maxlength="20"></div>
+<button id="verifyBtn" class="btn btn-primary" onclick="verifyCode()">验证兑换码</button>
+</div>
+<div class="upload-section" id="step2">
+<div class="input-label">上传群数据文件</div>
+<div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+<div class="upload-icon">📁</div><div class="upload-text">点击或拖拽文件到此处上传</div><div class="upload-hint">系统将自动生成完整分析报告</div>
+<input type="file" id="fileInput" accept=".json" style="display:none">
+</div>
+<div class="file-info" id="fileInfo">
+<div class="file-icon">📄</div><div class="file-details"><div class="file-name" id="fileName">filename.json</div><div class="file-size" id="fileSize">0 KB</div></div>
+<button class="file-remove" onclick="removeFile()">×</button>
+</div>
+<button id="uploadBtn" class="btn btn-primary" onclick="uploadFile()" disabled style="margin-top:16px">开始生成报告</button>
+</div>
+<div class="status" id="status"></div>
+</div>
+</div></section>
+<section class="trust-section"><div class="container">
+<div class="trust-title">数据安全说明</div>
+<div class="trust-items">
+<div class="trust-item"><div class="trust-icon">✓</div>数据仅用于本次分析</div>
+<div class="trust-item"><div class="trust-icon">✓</div>不保存聊天内容</div>
+<div class="trust-item"><div class="trust-icon">✓</div>分析完成后自动删除</div>
+<div class="trust-item"><div class="trust-icon">✓</div>无需登录微信账号</div>
+<div class="trust-item"><div class="trust-icon">✓</div>全程自动化处理</div>
+</div>
+</div></section>
+<script>
+let codeId=null,selectedFile=null
+const codeInput=document.getElementById('code'),verifyBtn=document.getElementById('verifyBtn'),uploadArea=document.getElementById('uploadArea'),fileInput=document.getElementById('fileInput'),fileInfo=document.getElementById('fileInfo'),fileName=document.getElementById('fileName'),fileSize=document.getElementById('fileSize'),uploadBtn=document.getElementById('uploadBtn'),status=document.getElementById('status')
+fileInput.addEventListener('change',e=>{if(e.target.files.length>0)handleFile(e.target.files[0])})
+uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('dragover')})
+uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('dragover'))
+uploadArea.addEventListener('drop',e=>{e.preventDefault();uploadArea.classList.remove('dragover');if(e.dataTransfer.files.length>0)handleFile(e.dataTransfer.files[0])})
+function showStatus(msg,type){status.textContent=msg;status.className='status active '+type}
+function handleFile(f){selectedFile=f;fileName.textContent=f.name;fileSize.textContent=f.size<1024?f.size+' B':f.size<1024*1024?(f.size/1024).toFixed(1)+' KB':(f.size/(1024*1024)).toFixed(1)+' MB';fileInfo.classList.add('active');uploadArea.style.display='none';uploadBtn.disabled=false;status.classList.remove('active')}
+function removeFile(){selectedFile=null;fileInput.value='';fileInfo.classList.remove('active');uploadArea.style.display='block';uploadBtn.disabled=true}
+function formatFileSize(b){return b<1024?b+' B':b<1024*1024?(b/1024).toFixed(1)+' KB':(b/(1024*1024)).toFixed(1)+' MB'}
+async function verifyCode(){const c=codeInput.value.trim();if(!c){showStatus('请输入兑换码','error');return}verifyBtn.disabled=true;verifyBtn.innerHTML='<span class="loading-spinner"></span>验证中...';showStatus('正在验证兑换码...','loading');try{const r=await fetch('/api/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:c})});const d=await r.json();if(r.ok&&d.valid){codeId=d.codeId;showStatus('兑换码验证成功！','success');document.getElementById('step1-indicator').classList.remove('active');document.getElementById('step2-indicator').classList.add('active');setTimeout(()=>{document.getElementById('step1').style.display='none';document.getElementById('step2').classList.add('active');document.getElementById('step2-indicator').classList.add('active');status.classList.remove('active')},1000)}else{showStatus(d.error||'兑换码无效','error');verifyBtn.disabled=false;verifyBtn.innerHTML='验证兑换码'}}catch(e){showStatus('网络错误，请重试','error');verifyBtn.disabled=false;verifyBtn.innerHTML='验证兑换码'}}
+async function uploadFile(){if(!selectedFile||!codeId){showStatus('请先选择文件','error');return}uploadBtn.disabled=true;uploadBtn.innerHTML='<span class="loading-spinner"></span>生成中...';showStatus('正在分析数据并生成报告...','loading');try{const fileContent=await selectedFile.text();const r=await fetch('/api/upload',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codeId,fileContent})});const d=await r.json();if(r.ok&&d.success){showStatus('报告生成成功！正在跳转...','success');document.getElementById('step2-indicator').classList.remove('active');document.getElementById('step3-indicator').classList.add('active');setTimeout(()=>{window.location.href=d.reportUrl},1500)}else{showStatus(d.error||'上传失败，请重试','error');uploadBtn.disabled=false;uploadBtn.innerHTML='开始生成报告'}}catch(e){showStatus('网络错误，请重试','error');uploadBtn.disabled=false;uploadBtn.innerHTML='开始生成报告'}}
+codeInput.addEventListener('keypress',e=>{if(e.key==='Enter')verifyCode()})
+</script></body></html>
